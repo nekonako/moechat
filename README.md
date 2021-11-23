@@ -10,7 +10,7 @@
 | Futa        | Golang API  |
 | Mashu       | Next JS     |
 
-### teach stack
+### tech stack
 - **Back End**
   
   - Golang
