@@ -1,0 +1,77 @@
+name: Moechat
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Check out repository
+      uses: actions/checkout@master
+
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.17
+    
+    - name: check dir
+      run: ls
+    - name: download dependencies, setting env variabel and build
+      run: |
+          cd futa
+          go mod download
+          CGO_ENABLED=0 go build -v -o moechat
+    
+    - name: check dir
+      run: ls futa
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: artifacts
+        path: ./futa/moechat
+    
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: check dir
+      run: ls
+
+    - name: download arctifacts
+      uses: actions/download-artifact@v2
+      with:
+        name: artifacts
+      
+    - name: check directory
+      run: ls
+
+    - name: send artifacts and docker compose file to server via scp
+      uses: appleboy/scp-action@master
+      env:
+        HOST: ${{ secrets.HOST }}
+        USERNAME: ${{ secrets.USERNAME }}
+        PORT: ${{ secrets.PORT }}
+        KEY: ${{ secrets.SSHKEY }}
+      with:
+        source: "."
+        target: "~/moechat" 
+    
+    - name: Build docker
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        USERNAME: ${{ secrets.USERNAME }}
+        PORT: ${{ secrets.PORT }}
+        KEY: ${{ secrets.SSHKEY }}
+        script: |
+                cd moechat
+                sudo docker build --tag moechat:0.1.0 .
+                sudo docker-compose -f docker-compose.prod.yml up --no-deps -d moechat

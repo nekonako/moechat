@@ -1,0 +1,16 @@
+version : "2.4"
+services:
+  postgre:
+    container_name: postgre
+    image: postgres:alpine
+    ports:
+      - 5432:5432
+    networks: 
+      - moechat-network
+    environment:
+      - POSTGRES_PASSWORD=${DBPASSWORD}
+      - POSTGRES_USER=${DBUSER}
+      - POSTGRES_DB=${DBNAME} 
+networks:
+  moechat-network:
+    name : moehchat-network
