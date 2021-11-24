@@ -6,7 +6,7 @@ export default function ChatBody({ data }): JSX.Element {
     if (message.type == 'recv') {
       return (
         <div
-          className="flex flex-col w-full text-right justify-end"
+          className="flex flex-col mt-2 w-full text-right justify-end"
           key={index}
         >
           <div className="text-sm" style={{ color: '#556368' }}>
@@ -21,7 +21,7 @@ export default function ChatBody({ data }): JSX.Element {
       );
     } else {
       return (
-        <div key={index}>
+        <div key={index} className="mt-2">
           <div className="text-sm" style={{ color: '#556368' }}>
             {message.username}
           </div>
