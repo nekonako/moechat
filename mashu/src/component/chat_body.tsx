@@ -5,10 +5,15 @@ export default function ChatBody({ data }): JSX.Element {
   return data.map((message: Message, index: number) => {
     if (message.type == 'recv') {
       return (
-        <div className="flex flex-col w-full text-right justify-end" key={index}>
-          <div className="text-sm" style={{ color : '#556368' }}>{message.username}</div>
+        <div
+          className="flex flex-col w-full text-right justify-end"
+          key={index}
+        >
+          <div className="text-sm" style={{ color: '#556368' }}>
+            {message.username}
+          </div>
           <div>
-            <div className="px-4 py-1 bg-yellow text-dark-secondary rounded-md inline-block">
+            <div className="px-4 py-1 bg-yellow text-dark-secondary mt-1 rounded-md inline-block">
               {message.message}
             </div>
           </div>
@@ -17,9 +22,13 @@ export default function ChatBody({ data }): JSX.Element {
     } else {
       return (
         <div key={index}>
-          <div>{message.username}</div>
-          <div className="px-2 py-1 bg-purple text-dark-secondary my-2 inline-block rounded-md">
-            {message.message}
+          <div className="text-sm" style={{ color: '#556368' }}>
+            {message.username}
+          </div>
+          <div>
+            <div className="px-2 py-1 bg-purple text-dark-secondary mt-1 inline-block rounded-md">
+              {message.message}
+            </div>
           </div>
         </div>
       );
