@@ -76,18 +76,18 @@ export default function App() {
 
   return (
     <>
-      <div className="flex flex-row w-full">
-        <div className="flex flex-col w-9/12">
-          <div className="p-4 mx-24 mb-14">
+      <div className="flex flex-col md:flex-row w-full">
+        <div className="flex flex-col w-full md:w-9/12">
+          <div className="p-4 md:mx-24 mb-14">
             <div>
               <ChatBody data={messages} />
             </div>
           </div>
           <div
-            className="fixed bottom-0 z-20 w-9/12 mt-4"
+            className="fixed bottom-0 md:w-9/12 mt-4 w-full"
             style={{ overflow: 'hidden' }}
           >
-            <div className="flex flex-row bg-dark-secondary px-4 py-2 mx-4 rounded-md">
+            <div className="flex md:flex-row bg-dark-secondary px-4 py-2 md:mx-4 rounded-md">
               <div className="flex w-full mr-4 bg-dark-secondary">
                 <textarea
                   ref={textarea}
@@ -109,7 +109,7 @@ export default function App() {
             </div>
           </div>
         </div>
-        <div className="w-3/12 flex flex-col border-l-2 border-dark-secondary p-4">
+        <div className="md:w-3/12 md:visible invisible flex flex-col border-l-2 border-dark-secondary p-4">
           <div className="fixed">
             <OnCloseConnection reconnect={reconnect} message={connStatus} />
             <div className="text-lg font-bold mb-4">online</div>

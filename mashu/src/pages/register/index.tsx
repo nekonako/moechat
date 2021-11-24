@@ -2,6 +2,7 @@ import router from 'next/router';
 import { useState } from 'react';
 import { User } from '../../types/user';
 import { registerService } from '../../service/register';
+import Spinner from '../../component/spinner'
 
 export default function Register() {
   const [username, setUsername] = useState('');
@@ -9,6 +10,7 @@ export default function Register() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
+  const [loading, setLoading] = useState(false)
 
   const onUsername = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -33,7 +35,7 @@ export default function Register() {
   const submit = async (e: React.MouseEvent<HTMLInputElement>) => {
     try {
       e.preventDefault();
-
+      setLoading(true)
       if (confirmPassword !== password) {
         setMessage('wrong confirm password');
         return;
@@ -47,12 +49,15 @@ export default function Register() {
       };
 
       if (username == '' || password == '' || email == '') {
-        return setMessage('Form harus diisi');
+        setMessage('Form harus diisi');
+        setLoading(false)
+        return
       }
 
       const res = await registerService(user);
 
       if (res.data.code === 201) {
+        setLoading(false)
         return router.push('/login');
       }
 
@@ -60,6 +65,7 @@ export default function Register() {
     } catch (err) {
       console.log(err);
       setMessage('Terjadi kesalahan');
+      setLoading(false)
     }
   };
 
@@ -102,7 +108,8 @@ export default function Register() {
               onClick={submit}
               className="p-3 font-bold bg-dark-secondary text-green mt-6 rounded-md"
             >
-              Sign Up
+              {!loading && 'Sign Up'}
+              {loading && <Spinner />}
             </button>
           </form>
         </div>
