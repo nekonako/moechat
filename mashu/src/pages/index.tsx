@@ -25,7 +25,7 @@ export default function Index() {
       }
     } catch (err) {
       console.log(err);
-      setMessage('Terjadi kesalahan saat mengambil daftar room');
+      setMessage('something wrong when getting rooms');
     }
   };
 
@@ -46,13 +46,11 @@ export default function Index() {
         roomName: roomName,
       });
       if (res.data) {
-        setMessage('berhasil');
-        getRooms();
-        setTimeout(() => setMessage(''), 1000);
+        getRooms(); 
       }
     } catch (err) {
       console.log(err);
-      setMessage('terjadi Kesalahan');
+      setMessage('something wrong');
     }
   };
 

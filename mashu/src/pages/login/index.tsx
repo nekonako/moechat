@@ -44,7 +44,7 @@ export default function Login() {
     } catch (err) {
       setLoading(false);
       console.log(err);
-      setMessage('Terjadi kesalahan');
+      setMessage('something wrong');
     }
   };
 

@@ -49,7 +49,7 @@ export default function Register() {
       };
 
       if (username == '' || password == '' || email == '') {
-        setMessage('Form harus diisi');
+        setMessage('Form must be filled');
         setLoading(false)
         return
       }
@@ -64,7 +64,7 @@ export default function Register() {
       setMessage(res.data.message);
     } catch (err) {
       console.log(err);
-      setMessage('somethink wrong');
+      setMessage('something wrong');
       setLoading(false)
     }
   };
