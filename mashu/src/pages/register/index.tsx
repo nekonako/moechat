@@ -64,7 +64,7 @@ export default function Register() {
       setMessage(res.data.message);
     } catch (err) {
       console.log(err);
-      setMessage('Terjadi kesalahan');
+      setMessage('somethink wrong');
       setLoading(false)
     }
   };

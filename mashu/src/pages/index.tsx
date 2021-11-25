@@ -19,7 +19,7 @@ export default function Index() {
 
   const getRooms = async () => {
     try {
-      const res = await getRoomService(); 
+      const res = await getRoomService();
       if (res.data.data) {
         setRooms(res.data.data);
       }
@@ -35,22 +35,20 @@ export default function Index() {
     if (token) {
       const jwt: UserInfo = jwtDecode(token);
       setUser(jwt);
-    } 
+    }
   }, []);
 
   const submit = async () => {
     try {
-      setRoomName('')
+      setRoomName('');
       const res = await createRoomService({
         roomId: uuidv4(),
         roomName: roomName,
       });
       if (res.data) {
         setMessage('berhasil');
-        setTimeout(async () => {
-          setMessage('');
-          await getRooms();
-        }, 1000);
+        getRooms();
+        setTimeout(() => setMessage(''), 1000);
       }
     } catch (err) {
       console.log(err);
